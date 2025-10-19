@@ -27,4 +27,7 @@
     - For time series data (algorithmic approaches like CHIMP or Gorilla): Dependence on manually chosen parameters like window size & Sensitivity to data characteristics (entropy, signal variability).
 - Possible Solution: Neural/ Learned Compression!
       - Current Research State: What has been done before, what has not been done before, why is it promising/ not promising?
+- Our Contribution:
+      - Making existing solution more efficient.
+      - Looking at unexplored specific problems (losless compression).
 
