@@ -13,3 +13,18 @@
     - general: https://www.nowpublishers.com/article/Details/CGV-107
     - images: https://www.mdpi.com/1099-4300/26/5/357?utm_source=chatgpt.com
     - time series: https://arxiv.org/abs/2101.08784?utm_source=chatgpt.com, https://arxiv.org/abs/2412.16266?utm_source=chatgpt.com
+ 
+## Previous Work (Simon's Thesis)
+- Why is neural/learned compression relevant: “Traditional compression approaches — including domain-specific methods such as Gorilla and CHIMP — rely on hand-crafted rules and statistical assumptions about data distributions. While highly efficient for structured or stationary data, these methods lack adaptability to the heterogeneous, multimodal, and non-stationary nature of modern automotive sensor data. Learned compression methods, in contrast, can discover data-driven representations optimized for both rate and task-specific reconstruction quality.”
+- Discussion of limitations of "traditional" algorithms: Dependence on manually chosen parameters like window size & Sensitivity to data characteristics (entropy, signal variability).
+
+## Proposal Argument Chain
+- Fact: There is a lot of data generated from modern vehicles!
+- Why is a lot of data a problem?: Storage and transmission of data!
+    -  What concretely is the data used for? What are the components that communicate through data? What needs to be accounted for? 
+- Why cant we use traditional compression methods?
+    - For video/image (JPEG, MP3, ...): optimized for human perception (e.g., visual quality) rather than machine learning tasks or efficient downstream data use.
+    - For time series data (algorithmic approaches like CHIMP or Gorilla): Dependence on manually chosen parameters like window size & Sensitivity to data characteristics (entropy, signal variability).
+- Possible Solution: Neural/ Learned Compression!
+      - Current Research State: What has been done before, what has not been done before, why is it promising/ not promising?
+
