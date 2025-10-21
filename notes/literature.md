@@ -20,6 +20,8 @@
 
 ## Proposal Argument Chain
 - Fact: There is a lot of data generated from modern vehicles!
+    Assumptions about data overload leads to development of event-based observation => maintaining, ... + reduces level of observation
+    Not only "autonomous" cars and vehicles.
 - Why is a lot of data a problem?: Storage and transmission of data!
     -  What concretely is the data used for? What are the components that communicate through data? What needs to be accounted for? 
 - Why cant we use traditional compression methods?

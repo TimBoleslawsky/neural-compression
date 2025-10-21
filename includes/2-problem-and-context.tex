@@ -1,0 +1,26 @@
+\section{Problem and Context}
+\subsection{Problem Statement}
+“Early in-vehicle networking architectures (Classical CAN at 1 Mbit/s; later FlexRay) were sufficient for control loops but not for the sustained high-throughput streams produced by 1.) cameras, radar, and LiDAR, and 2.) growing observability concerns, prompting selective data acquisition strategies.” “To prevent bus saturation, manufacturers adopted event-triggered and threshold-based diagnostic logging, which—while reducing communication load—introduced maintenance overhead and diminished holistic observability.”
+
+There is a lot of data generated from modern vehicles! \cite{bello2019advances} points out a that, as foreseen by Intel, the amount of data generated will increase dramatically: from an average of 1.5 GB of traffic data per Internet user today, we will move toward 4000 GB of data generated per day by an AD car including technical data, personal data, crowd-sourced data, and societal data.
+
+Why is a lot of data a problem?: Storage and transmission of data!
+\begin{itemize}
+    \item What concretely is the data used for?
+    \item What are the components that communicate through data? 
+    \item What needs to be accounted for?    
+\end{itemize}
+
+\subsection{Traditional Compression Methods}
+Why can't we use traditional compression methods?
+\begin{itemize}
+    \item For video/image (JPEG, MP3, ...): optimized for human perception (e.g., visual quality) rather than machine learning tasks or efficient downstream data use.
+    \item For time series data (algorithmic approaches like CHIMP or Gorilla): Dependence on manually chosen parameters like window size \& Sensitivity to data characteristics (entropy, signal variability). 
+\end{itemize}
+
+\subsection{Neural/ Learned Compression as a Possible Solution}
+Here is what achievements have been made in the field of neural compression:
+\begin{itemize}
+    \item There have been numerous advances in learned compression methods for images, videos, and time series data that outperform traditional methods in terms of rate-distortion performance. \cite{barakat2025fisheye}, for example, investigate the use of deep learning based techniques for fisheye image compression in automotive applications. The authors find that learned compression methods can achieve better compression performance particularly at low bitrates crucial for automotive applications, which as the authors point out is crucial for automotive applications.
+    \item 
+\end{itemize}
