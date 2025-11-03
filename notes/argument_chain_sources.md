@@ -235,7 +235,27 @@ While that work is more general, the principle applies: you could imagine an in-
 
 ---
 
-### 2. Rate–utility (compression vs model performance) modelling
+### 2. End-to-end co-design of logging + ML inference pipelines (closed-loop)
+
+This direction focuses on treating the logging/compression and the ML‐model training/inference as a coupled system, rather than separate components. For example: Logging decisions influence ML model accuracy; ML model requirement should influence what is logged; the system adapts over time (models evolve, logging strategy evolves).
+Why this matters: Many works treat compression/telemetry and ML as separate problems. But in vehicle systems, logging is upstream of the ML pipeline. Co‐optimization could yield better overall system performance (bandwidth + ML accuracy + latency). There is some work in “task‐oriented compression” in general communications/ML but much less specifically for vehicle systems. E.g., “Task-Oriented Data Compression for Multi‐Agent Communications Over Bit-Budgeted Channels” explores similar themes. 
+arXiv
+
+**Potential contribution**: A thesis could define and evaluate a looped architecture: logging/compression module ↔ ML module ↔ model performance feedback ↔ adapt logging policy. This could include formalising a cost function: bandwidth cost + ML task error + latency penalty; then designing algorithms to adapt logging policy in real-time.
+
+---
+
+### 3. Task-aware tokenization as a compression strategy
+
+Tokenization can be interpreted as a form of data compression and representation, where continuous or high-dimensional sensor streams (e.g., LiDAR, radar, CAN, camera frames) are converted into discrete units (“tokens”) that preserve task-relevant information for downstream ML. Unlike traditional compression methods that optimize for reconstruction quality (PSNR/SSIM), task-aware tokenization aims to maximize ML utility per bit, maintaining critical patterns while reducing sequence length and storage/transmission cost. Recent work (e.g., 2402.16412) formalizes tokenization as a learned/adaptive process, showing that token boundaries and embeddings can be optimized for downstream performance.
+
+Takeaway: Tokenization provides a principled way to represent sensor data efficiently for ML tasks, complementing selective telemetry or neural compression. Its novelty lies in discretizing and structuring logged data for task-specific ML, which is particularly underexplored for heterogeneous automotive sensor streams.
+
+Possible contribution: Designing and evaluating a task-aware tokenization scheme for logged vehicle sensor data, where token formation is guided by ML model requirements (e.g., predictive maintenance or anomaly detection). The study could compare conventional compression, naive tokenization, and ML-optimized tokenization in terms of model accuracy, bandwidth, and storage efficiency, highlighting trade-offs and practical feasibility for in-vehicle deployment.
+
+---
+
+### Supporting contribution: Rate–utility (compression vs model performance) modelling
 
 Some recent works look at *rate–utility trade-offs* more explicitly. For instance, in more general ML / data compression literature, **“Dataset Distillation as Data Compression: A Rate-Utility Perspective”** formulates the trade-off between dataset size (“rate”) and model performance (“utility”) in a joint optimization framework. ([arXiv][6])
 
@@ -246,26 +266,6 @@ However, the mapping from **bitrate (or log rate) → ML metric (accuracy, F1, r
 **Takeaway:** modelling the curve between compression rate and utility is possible in theory, but in practice is highly dependent on data modality, task, and architecture; a general closed-form solution is elusive.
 
 **Possible contribution**: Quantifying the trade-off between compression rate and ML performance, which is useful, but less about designing or training ML models and more about evaluation and optimization frameworks. Probably not data science-y enough!
-
----
-
-### 3. End-to-end co-design of logging + ML inference pipelines (closed-loop)
-
-This direction focuses on treating the logging/compression and the ML‐model training/inference as a coupled system, rather than separate components. For example: Logging decisions influence ML model accuracy; ML model requirement should influence what is logged; the system adapts over time (models evolve, logging strategy evolves).
-Why this matters: Many works treat compression/telemetry and ML as separate problems. But in vehicle systems, logging is upstream of the ML pipeline. Co‐optimization could yield better overall system performance (bandwidth + ML accuracy + latency). There is some work in “task‐oriented compression” in general communications/ML but much less specifically for vehicle systems. E.g., “Task-Oriented Data Compression for Multi‐Agent Communications Over Bit-Budgeted Channels” explores similar themes. 
-arXiv
-
-**Potential contribution**: A thesis could define and evaluate a looped architecture: logging/compression module ↔ ML module ↔ model performance feedback ↔ adapt logging policy. This could include formalising a cost function: bandwidth cost + ML task error + latency penalty; then designing algorithms to adapt logging policy in real-time.
-
----
-
-### 4. Task-aware tokenization as a compression strategy
-
-Tokenization can be interpreted as a form of data compression and representation, where continuous or high-dimensional sensor streams (e.g., LiDAR, radar, CAN, camera frames) are converted into discrete units (“tokens”) that preserve task-relevant information for downstream ML. Unlike traditional compression methods that optimize for reconstruction quality (PSNR/SSIM), task-aware tokenization aims to maximize ML utility per bit, maintaining critical patterns while reducing sequence length and storage/transmission cost. Recent work (e.g., 2402.16412) formalizes tokenization as a learned/adaptive process, showing that token boundaries and embeddings can be optimized for downstream performance.
-
-Takeaway: Tokenization provides a principled way to represent sensor data efficiently for ML tasks, complementing selective telemetry or neural compression. Its novelty lies in discretizing and structuring logged data for task-specific ML, which is particularly underexplored for heterogeneous automotive sensor streams.
-
-Possible contribution: Designing and evaluating a task-aware tokenization scheme for logged vehicle sensor data, where token formation is guided by ML model requirements (e.g., predictive maintenance or anomaly detection). The study could compare conventional compression, naive tokenization, and ML-optimized tokenization in terms of model accuracy, bandwidth, and storage efficiency, highlighting trade-offs and practical feasibility for in-vehicle deployment.
 
 ---
 
