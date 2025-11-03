@@ -17,7 +17,7 @@ Quotable fragments (paraphrased; confirm exact wording in sources):
 - “FlexRay increased available bandwidth and determinism but still falls short for uncompressed camera or LiDAR streams.”
 - “Emerging automotive Ethernet and TSN standards are introduced to cope with escalating sensor data volume and timing constraints.”
 - From Lo Bello et al. (2019): Emphasize rise of Ethernet and time-sensitive networking due to bandwidth/latency constraints of legacy buses.
-- Intel forecast: “An autonomous vehicle may generate several terabytes of data per day” (supports magnitude; you already cited 4000 GB/day).
+- Intel forecast: "As foreseen by Intel [4], from an average of 1.5 GB of traffic data per Internet user today, we will move toward 4000 GB of data generated per day by an AD car including technical data, personal data, crowd-sourced data, and societal data". (https://arpi.unipi.it/retrieve/5340c545-5478-40b3-ae53-38767fa5aeb7/Recent%2BAdvances%2Band%2BTrends%2B2018.pdf?utm_source=chatgpt.com)
 
 BibTeX skeletons (samples):
 ```
