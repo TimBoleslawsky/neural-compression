@@ -1,5 +1,3 @@
-Below is a structured set of literature suggestions and sample quotable fragments to support your 3‑step argument chain. I’ve focused on established, citable sources (standards, surveys, seminal papers). For each step you get: purpose, suggested sources, short quotes (paraphrasable), and BibTeX skeletons you can add to `references.bib`. Replace placeholders after you retrieve full metadata (page numbers, etc.). Where possible I include canonical DOIs.
-
 ## 1) Early concern: continuous streaming would overload in-vehicle networks
 
 Core idea: Legacy in-vehicle networks (Classical CAN at 1 Mbit/s, LIN at 20 Kbit/s) were never designed for high-volume continuous sensor streams (video, radar point clouds). This motivated selective/event-based logging and diagnostic approaches.
@@ -121,7 +119,7 @@ BibTeX skeletons:
 
 ## 3) Universality across all vehicles + rising intelligence increases data quantity pressure
 
-Core idea: Even non-autonomous vehicles adopt ADAS sensors (cameras, radar, LiDAR, ultrasonic, V2X modules). “Intelligence” (perception, decision, driver assistance) multiplies data sources and processing needs. Combined with legacy event-based strategies, this leads to fragmented, insufficient data for machine-learning driven maintenance and optimization—motivating improved compression and adaptive logging.
+Core idea: Even non-autonomous vehicles adopt ADAS sensors (cameras, radar, LiDAR, ultrasonic, V2X modules). “Intelligence” (perception, decision, driver assistance) multiplies data sources and processing needs. Combined with legacy event-based strategies, this leads to fragmented, insufficient data for machine-learning driven maintenance and optimization — motivating improved compression and adaptive logging.
 
 Suggested sources:
 - ADAS sensor growth reports (Bosch or Continental whitepapers, McKinsey automotive electronics reports).
@@ -164,22 +162,107 @@ BibTeX skeletons:
 }
 ```
 
-## Integrating into your argument chain
+## 4) Relevance of Downstream Machine Learning Tasks in Modern Vehicle Systems
 
-Suggested narrative bridging sentences (you can adapt):
-1. “Early in-vehicle networking architectures (Classical CAN at 1 Mbit/s; later FlexRay) were sufficient for control loops but not for the sustained high-throughput streams produced by cameras, radar, and LiDAR, prompting selective data acquisition strategies.” (cite ISO11898_1_can, flexray_spec, bello2019)
-2. “To prevent bus saturation, manufacturers adopted event-triggered and threshold-based diagnostic logging (Heemels_event_triggered_survey; tabuada_event_triggered_control), which—while reducing communication load—introduced maintenance overhead and diminished holistic observability.” (cite heemels_event_triggered_survey, tabuada_event_triggered_control, obd_limitations_survey)
-3. “As ADAS and autonomous functionalities permeate even conventional vehicles, the proliferation of sensors and perception workloads magnifies the limitations of legacy event-driven data collection, necessitating scalable high-bandwidth networks and task-aware compression.” (cite adas_sensor_growth_survey, sensor_fusion_automotive, habibian2019video, barakat2025fisheye)
+Modern vehicles increasingly rely on **data-driven intelligence** to enhance safety, reliability and efficiency. Beyond perception and control, downstream machine learning (ML) tasks—those leveraging collected vehicle and sensor data for offline analysis, optimization and predictive functions—have become central to automotive‐system design. These tasks include predictive maintenance, anomaly & intrusion detection, fleet‐level analytics, and sensor data‐fusion for perception and decision-making.
 
-## Next steps
+**Predictive maintenance (PdM).** ML is used to anticipate component failures or performance degradation before they manifest, thereby reducing unplanned downtime and maintenance costs. For example, Theissler et al. (2021) show that ML‐based PdM in automotive systems is a rapidly growing area, enabled by large volumes of vehicle sensor/telemetry data. ([Space Frontiers][1]) Many case‐studies report successful application of regression, classification and ensemble methods to vehicle maintenance. ([ijecs.in][2])
 
-- Add definite sources (search for “Automotive Ethernet overview IEEE Communications Magazine” and “Vehicle sensor fusion survey”).
-- Replace placeholder BibTeX entries with actual authors / DOIs.
-- Cite multiple types (standard + survey + application) for credibility.
-- Consider adding a short table aligning data sources (control sensors vs high-data sensors) with typical bitrates.
+**Anomaly & intrusion detection on in-vehicle networks (IVNs).** As modern vehicles become more connected and complex, the internal communication buses (e.g., CAN) are targets for malfunction or cyber-attack. Recent surveys (Özdemir et al., 2024) review ML and deep-learning methods for anomaly detection on CAN traffic, emphasising the need for high‐frequency logging and rich data to train robust models. ([arXiv][3])
 
-If you want, I can:
-- Add the skeleton BibTeX entries directly to `references.bib`.
-- Draft the revised paragraph with integrated citations.
+**Perception / sensor‐fusion ML for ADAS/autonomy.** The influx of continuous data streams from cameras, radar, LiDAR, ultrasonic, V2X modules means ML models must handle large, heterogeneous, temporal and event‐driven data. These downstream tasks require **holistic visibility** of the data, not just event-triggered snapshots.
 
-Just tell me which action you’d like next.
+**Fleet analytics and operational optimisation.** At the fleet scale, telematics and sensor data feed ML models for driver behaviour, energy/fuel consumption, maintenance scheduling, route optimisation and asset management. Reviews show this is a practical domain with substantial industry uptake. ([MDPI][4])
+
+---
+
+**Data‐collection tension and the need for adaptive logging.**
+While the aforementioned ML tasks underline the *need* for rich, continuous, high-frequency and well‐labelled data, there is a clear tension: legacy in‐vehicle architectures (e.g., classic CAN at 1 Mbit/s, LIN at 20 Kbit/s) were never designed for high‐volume continuous sensor streams. This means that many production logging frameworks resort to event‐triggered or threshold-based logging, which reduces data volume but **limits visibility**, **biases sampling**, and complicates ML modelling (e.g., missing subtle degradation trends, fragmented datasets). The ML literature emphasises that adequate data volume, diversity and representation (including labelled failure cases) is often lacking, and this degrades model performance and generalisability. ([Space Frontiers][1])
+
+Hence there is a clear and growing motivation for **adaptive logging, intelligent compression and selectively-triggered but ML-aware data acquisition** frameworks: such that the data collected still supports downstream ML tasks (predictive maintenance, anomaly detection, fleet analytics) while respecting bandwidth/storage constraints.
+
+---
+
+**In summary**, the relevance of downstream ML tasks in modern vehicle systems is strong and multi‐faceted: from maintenance to security to perception to fleet operations. Their success *critically depends* on data collection strategies that preserve ML utility, which links directly to your argument chain on legacy networks → event‐based logging → fragmented datasets → need for improved logging/compression.
+
+[1]: https://spacefrontiers.org/r/10.1016/j.ress.2021.107864?utm_source=chatgpt.com "Predictive maintenance enabled by machine learning: Use cases and challenges in the automotive industry | Space Frontiers"
+[2]: https://ijecs.in/index.php/ijecs/article/view/4786?utm_source=chatgpt.com "Machine Learning Algorithms for Predictive Maintenance in Autonomous Vehicles | International Journal of Engineering and Computer Science"
+[3]: https://arxiv.org/abs/2409.07505?utm_source=chatgpt.com "A Survey of Anomaly Detection in In-Vehicle Networks"
+[4]: https://www.mdpi.com/2076-3417/15/20/11095?utm_source=chatgpt.com "Vehicle Maintenance Demand Prediction: A Survey"
+
+## 5) Balancing Compression (neural compression and event-triggered logging) and ML Performance in Vehicular Systems
+
+There is an inherent trade-off between bandwidth/storage vs. ML utility! For example, event-triggered logging is efficient but introduces bias into logged data, possibly omitting predictive precursor signals. Moreover, even advanced learned or neural compression approaches exhibit similar trade-offs between compression efficiency and task-relevant information fidelity (Toderici et al., 2019).
+
+### 1. Learned / Perception-aware compression and its effect on perception tasks
+
+Recent work in distributed perception systems shows that compressing intermediate features or sensor data via neural autoencoders or hybrid schemes can reduce bandwidth dramatically while maintaining—or only moderately degrading—detection or segmentation performance. For example, **Xu et al., “CoSDH: Communication-Efficient Collaborative Perception” (CVPR 2025)** compress intermediate features and show ~95 % bandwidth reduction with only slight accuracy loss in object detection, via supply-demand awareness and hybrid fusion schemes. ([openaccess.thecvf.com][1])
+
+Another notable study: **Löhdefink et al., “GAN- vs. JPEG2000 Image Compression for Distributed Automotive Perception”** show that although GAN-based compression may score worse in PSNR/SSIM, it can yield *better semantic segmentation (mIoU)* at very low bitrates compared to JPEG2000, when the segmentation model is trained on reconstructions from that codec. ([arXiv][2])
+
+There is also general work on **recognition-aware learned compression** (e.g. Kawawa-Beaudan et al.) that explicitly optimize compression not only for visual distortion but also for classification accuracy (joint rate + task loss). ([arXiv][3])
+
+**Takeaway:** compression tuned for reconstruction is not always optimal for ML tasks; joint optimization or perception-aware compression is more promising.
+
+---
+
+### 2. Event-triggered / threshold-based logging and missed subtle degradation
+
+In diagnostic or maintenance logging, event-triggered approaches (i.e. log only when a signal crosses a threshold or fault code triggers) are common to reduce data volume. But they tend to **miss gradual, slow degradations or prior weak signals** that never breach the threshold. Some case studies (e.g. industrial white papers on event-oriented fault detection) describe how event logging simplifies diagnosis but at the cost of loss of “contextual continuity.” ([gregstanleyandassociates.com][4])
+
+In the automotive domain, Theissler et al. (as you previously noted) argue that threshold tuning is laborious, and subtle drift patterns may remain invisible until failure. Unfortunately, there is limited open literature quantifying exactly how much ML model performance degrades due to this selective logging—but this is precisely a gap you can fill.
+
+**Takeaway:** event-triggered logging is efficient but introduces bias into logged data, possibly omitting predictive precursor signals.
+
+---
+
+[1]: https://openaccess.thecvf.com/content/CVPR2025/papers/Xu_CoSDH_Communication-Efficient_Collaborative_Perception_via_Supply-Demand_Awareness_and_Intermediate-Late_Hybridization_CVPR_2025_paper.pdf?utm_source=chatgpt.com "CoSDH: Communication-Efficient Collaborative Perception via ..."
+[2]: https://arxiv.org/abs/1902.04311?utm_source=chatgpt.com "GAN- vs. JPEG2000 Image Compression for Distributed Automotive Perception: Higher Peak SNR Does Not Mean Better Semantic Segmentation"
+[3]: https://arxiv.org/abs/2202.00198?utm_source=chatgpt.com "Recognition-Aware Learned Image Compression"
+[4]: https://gregstanleyandassociates.com/whitepapers/FaultDiagnosis/Event-Oriented/event-oriented.htm?utm_source=chatgpt.com "Event-oriented fault detection, diagnosis, and correlation"
+
+## 6) Promising new Research Directions and Contributions
+
+### 1. Uncertainty / novelty / utility-aware adaptive telemetry
+
+An emerging direction is logging based not just on threshold triggers but on *informational value* — e.g. whether the current data point is uncertain, novel, or “interesting” relative to a model’s expectations. Some time-series anomaly detection research integrates uncertainty quantification (aleatoric + epistemic) to decide where to pay more attention or log more finely (e.g., Wiessner et al. in “Uncertainty-Aware Time Series Anomaly Detection”). ([MDPI][5])
+
+While that work is more general, the principle applies: you could imagine an in-vehicle module that logs full sensor frames only when model uncertainty is high, otherwise logs compressed summaries. The challenge is designing the utility or novelty metric that correlates best with downstream ML performance.
+
+**Takeaway:** adaptive logging guided by uncertainty or novelty is promising but requires careful design of the utility criterion.
+
+**Possible contribution**: Proposing a utility-aware adaptive telemetry framework for modern vehicle systems, in which data collection is guided by machine learning models that estimate the informational value of sensor streams. By logging data points that are uncertain, novel, or particularly relevant to downstream tasks such as anomaly detection or predictive maintenance, the approach reduces bandwidth and storage requirements while preserving model performance. The contribution lies in demonstrating that ML-driven, task-specific logging can achieve superior efficiency and effectiveness compared to conventional threshold- or event-based strategies, with quantitative evaluation across representative automotive datasets.
+
+---
+
+### 2. Rate–utility (compression vs model performance) modelling
+
+Some recent works look at *rate–utility trade-offs* more explicitly. For instance, in more general ML / data compression literature, **“Dataset Distillation as Data Compression: A Rate-Utility Perspective”** formulates the trade-off between dataset size (“rate”) and model performance (“utility”) in a joint optimization framework. ([arXiv][6])
+
+Also, in the context of trajectory data, studies such as “Compression of Vehicle Trajectories with a Variational Autoencoder” explore compressing trajectory time-series inputs while retaining classification/clustering performance. ([MDPI][7])
+
+However, the mapping from **bitrate (or log rate) → ML metric (accuracy, F1, recall, etc.)** remains highly non-linear, task-dependent, and underexplored in automotive settings. That is, you cannot reliably predict how much compression “budget” you can sacrifice before ML performance collapses, except empirically.
+
+**Takeaway:** modelling the curve between compression rate and utility is possible in theory, but in practice is highly dependent on data modality, task, and architecture; a general closed-form solution is elusive.
+
+**Possible contribution**: Quantifying the trade-off between compression rate and ML performance, which is useful, but less about designing or training ML models and more about evaluation and optimization frameworks. Probably not data science-y enough!
+
+---
+
+### 3. End-to-end co-design of logging + ML inference pipelines (closed-loop)
+
+This direction focuses on treating the logging/compression and the ML‐model training/inference as a coupled system, rather than separate components. For example: Logging decisions influence ML model accuracy; ML model requirement should influence what is logged; the system adapts over time (models evolve, logging strategy evolves).
+Why this matters: Many works treat compression/telemetry and ML as separate problems. But in vehicle systems, logging is upstream of the ML pipeline. Co‐optimization could yield better overall system performance (bandwidth + ML accuracy + latency). There is some work in “task‐oriented compression” in general communications/ML but much less specifically for vehicle systems. E.g., “Task-Oriented Data Compression for Multi‐Agent Communications Over Bit-Budgeted Channels” explores similar themes. 
+arXiv
+
+**Potential contribution**: A thesis could define and evaluate a looped architecture: logging/compression module ↔ ML module ↔ model performance feedback ↔ adapt logging policy. This could include formalising a cost function: bandwidth cost + ML task error + latency penalty; then designing algorithms to adapt logging policy in real-time.
+
+---
+
+[5]: https://www.mdpi.com/1999-5903/16/11/403?utm_source=chatgpt.com "Uncertainty-Aware Time Series Anomaly Detection"
+[6]: https://arxiv.org/html/2507.17221v1?utm_source=chatgpt.com "Dataset Distillation as Data Compression: A Rate-Utility ..."
+[7]: https://www.mdpi.com/2076-3417/10/19/6739?utm_source=chatgpt.com "Compression of Vehicle Trajectories with a Variational ..."
+
+
+
+ 
