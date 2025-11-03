@@ -1,15 +1,18 @@
 \section{Problem and Context}
 \subsection{Problem Statement}
-“Early in-vehicle networking architectures (Classical CAN at 1 Mbit/s; later FlexRay) were sufficient for control loops but not for the sustained high-throughput streams produced by 1.) cameras, radar, and LiDAR, and 2.) growing observability concerns, prompting selective data acquisition strategies.” “To prevent bus saturation, manufacturers adopted event-triggered and threshold-based diagnostic logging, which—while reducing communication load—introduced maintenance overhead and diminished holistic observability.”
+When discussing the down-stream machine learning capabilities of modern automotive-systems, there is an inherent trade-off between bandwidth/storage and machine learning utility. For example, event-triggered logging is efficient but introduces bias into logged data, possibly omitting predictive precursor signals (gregstanleyandassociates). Moreover, even advanced learned or neural compression approaches exhibit similar trade-offs between compression efficiency and task-relevant information fidelity (Löhdefink).
+\\
+\\
+Let's shed a little more light on where we are coming from and why the above mentioned trade-off is important.
 
-There is a lot of data generated from modern vehicles! \cite{bello2019advances} points out a that, as foreseen by Intel, the amount of data generated will increase dramatically: from an average of 1.5 GB of traffic data per Internet user today, we will move toward 4000 GB of data generated per day by an AD car including technical data, personal data, crowd-sourced data, and societal data.
+\subsection{Why do we use Event-triggered Logging in Automotive Systems?} 
+“Early in-vehicle networking architectures (Classical CAN at 1 Mbit/s; later FlexRay) were sufficient for control loops but not for the sustained high-throughput streams produced by cameras, radar, and LiDAR, as well as growing observability concerns, prompting selective data acquisition strategies.” “To prevent bus saturation, manufacturers adopted event-triggered and threshold-based diagnostic logging, which—while reducing communication load—introduced maintenance overhead and diminished holistic observability.”
 
-Why is a lot of data a problem?: Storage and transmission of data!
-\begin{itemize}
-    \item What concretely is the data used for?
-    \item What are the components that communicate through data? 
-    \item What needs to be accounted for?    
-\end{itemize}
+There is a lot of data generated from modern vehicles!~\cite{bello2019advances} points out a that, as foreseen by Intel, the amount of data generated will increase dramatically: from an average of 1.5 GB of traffic data per Internet user today, we will move toward 4000 GB of data generated per day by an AD car including technical data, personal data, crowd-sourced data, and societal data.
+
+\subsection{Limitations of Event-triggered Logging and the Data Quantity Pressure} 
+
+\subsection{Relevance of Downstream Machine Learning Tasks in Modern Automotive Systems}
 
 \subsection{Traditional Compression Methods}
 Why can't we use traditional compression methods?
