@@ -259,6 +259,16 @@ arXiv
 
 ---
 
+### 4. Task-aware tokenization as a compression strategy
+
+Tokenization can be interpreted as a form of data compression and representation, where continuous or high-dimensional sensor streams (e.g., LiDAR, radar, CAN, camera frames) are converted into discrete units (“tokens”) that preserve task-relevant information for downstream ML. Unlike traditional compression methods that optimize for reconstruction quality (PSNR/SSIM), task-aware tokenization aims to maximize ML utility per bit, maintaining critical patterns while reducing sequence length and storage/transmission cost. Recent work (e.g., 2402.16412) formalizes tokenization as a learned/adaptive process, showing that token boundaries and embeddings can be optimized for downstream performance.
+
+Takeaway: Tokenization provides a principled way to represent sensor data efficiently for ML tasks, complementing selective telemetry or neural compression. Its novelty lies in discretizing and structuring logged data for task-specific ML, which is particularly underexplored for heterogeneous automotive sensor streams.
+
+Possible contribution: Designing and evaluating a task-aware tokenization scheme for logged vehicle sensor data, where token formation is guided by ML model requirements (e.g., predictive maintenance or anomaly detection). The study could compare conventional compression, naive tokenization, and ML-optimized tokenization in terms of model accuracy, bandwidth, and storage efficiency, highlighting trade-offs and practical feasibility for in-vehicle deployment.
+
+---
+
 [5]: https://www.mdpi.com/1999-5903/16/11/403?utm_source=chatgpt.com "Uncertainty-Aware Time Series Anomaly Detection"
 [6]: https://arxiv.org/html/2507.17221v1?utm_source=chatgpt.com "Dataset Distillation as Data Compression: A Rate-Utility ..."
 [7]: https://www.mdpi.com/2076-3417/10/19/6739?utm_source=chatgpt.com "Compression of Vehicle Trajectories with a Variational ..."
