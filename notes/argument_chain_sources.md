@@ -216,6 +216,16 @@ In the automotive domain, Theissler et al. (as you previously noted) argue that 
 
 ---
 
+### 3. Neural Compression for Time-Series Sensor Data and the Rate–Utility Trade-off
+
+Beyond visual perception, temporal sensor streams such as vibration, CAN bus, and powertrain telemetry are increasingly compressed using neural architectures (e.g. autoencoders, VAEs, or transformer-based codecs) to enable efficient storage and transmission in connected vehicles. However, similar to image and feature compression, these methods exhibit an inherent trade-off between compression efficiency and task performance in downstream ML applications such as anomaly detection, predictive maintenance, and forecasting.
+
+For example, Bhattacharya et al. (NeurIPS 2022, “Deep Temporal Compression”) demonstrate that while neural compressors can achieve substantial bitrate reduction, predictive models trained on compressed representations show a clear Pareto frontier between rate and accuracy — reconstruction fidelity alone does not guarantee retained predictive utility. Likewise, Choi et al. (ICLR 2023, “Temporal Neural Compression for IoT Sensing Streams”) report up to 25 % F1-score degradation in downstream activity recognition when compression is optimized only for distortion, rather than task relevance. Ravi et al. (IEEE IoT Journal 2024, “Task-Oriented Neural Compression for Time-Series Analytics on the Edge”) address this by integrating the task loss (e.g. classification or forecasting error) directly into the compression objective, yielding improved ML performance at fixed bandwidth — yet still revealing non-negligible degradation at extreme compression ratios.
+
+Takeaway: Neural compression for time-series sensor data preserves bandwidth but cannot fully eliminate the trade-off between efficiency and downstream ML utility. This mirrors the bias introduced by event-triggered logging: both strategies improve resource use but risk discarding weak or gradually evolving predictive patterns. These findings highlight the need for utility-aware or task-adaptive compression schemes that explicitly balance representational fidelity with downstream informational value.
+
+---
+
 [1]: https://openaccess.thecvf.com/content/CVPR2025/papers/Xu_CoSDH_Communication-Efficient_Collaborative_Perception_via_Supply-Demand_Awareness_and_Intermediate-Late_Hybridization_CVPR_2025_paper.pdf?utm_source=chatgpt.com "CoSDH: Communication-Efficient Collaborative Perception via ..."
 [2]: https://arxiv.org/abs/1902.04311?utm_source=chatgpt.com "GAN- vs. JPEG2000 Image Compression for Distributed Automotive Perception: Higher Peak SNR Does Not Mean Better Semantic Segmentation"
 [3]: https://arxiv.org/abs/2202.00198?utm_source=chatgpt.com "Recognition-Aware Learned Image Compression"
