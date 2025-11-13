@@ -1,0 +1,18 @@
+\section{Goals and Challenges}
+\begin{itemize}
+    \item \textbf{Main goal:} Develop and evaluate a \emph{task-aware tokenization framework} for automotive data that balances compression efficiency with ML utility.
+    \item \textbf{Sub-goals:}
+    \begin{itemize}
+        \item Quantify the rate--utility trade-off between compression and ML performance.
+        \item Compare tokenization-based compression to event-based and neural compression baselines \citep{bhattacharya2022, choi2023, ravi2024}.
+        \item Investigate adaptive or uncertainty-driven data selection mechanisms \citep{wiessner2024}.
+        \item Position tokenization within a co-design framework linking logging and ML performance \citep{task_oriented2023}.
+    \end{itemize}
+    \item \textbf{Challenges:}
+    \begin{itemize}
+        \item Designing tokenization mechanisms for heterogeneous sensor data.
+        \item Defining ML-aware utility metrics correlating rate with accuracy/F1.
+        \item Bias and sparsity in selectively logged data.
+        \item Real-time constraints in embedded environments.
+    \end{itemize}
+\end{itemize}
