@@ -1,8 +1,22 @@
-\section{Problem}
-\begin{itemize}
-    \item Main problem: Balancing Compression (neural compression and event-triggered logging) and ML Performance in Vehicular Systems!
-    \item \textbf{Event-triggered diagnostics:} Threshold-based strategies miss gradual degradation patterns \citep{heemels_event_triggered_survey, obd_limitations_survey}.
-    \item \textbf{Data-driven dependency:} Predictive maintenance, anomaly detection, and fleet analytics require dense, representative data \citep{theissler2021, mdpi2024}.
-    \item \textbf{Trade-off challenge:} Compression and event-triggered sampling save bandwidth but degrade model accuracy \citep{toderici2019, bhattacharya2022, choi2023}.
-    \item \textbf{Gap:} There is little systematic analysis of the rate--utility trade-off between compression efficiency and ML performance in vehicular contexts.
-\end{itemize}
+\section{Problem}\label{sec:problem}
+
+Constructing downstream ML models for automotive systems, is a constant trade-off between data compression and model performance. Traditional compression techniques can reduce data volume but often at the cost of losing critical information necessary for accurate ML tasks such as predictive maintenance, anomaly detection, and fleet analytics. 
+\\
+\\
+% Examples
+A promising development in this area has been neural compression, which leverages deep learning models to learn efficient data representations that retain essential features for ML tasks while achieving high compression ratios \citep{yang2022}. Several studies have demonstrated the potential of neural compression techniques to outperform traditional methods in preserving ML model performance at lower bitrates. In one notable study \citep{löhdefink2019} show that although GAN-based compression may score worse in PSNR/SSIM, it can yield better semantic segmentation (mIoU) at very low bitrates compared to JPEG2000, when the segmentation model is trained on reconstructions from that codec. Similar findings are reported when looking at time series data.~\citep{zheng2023} for example, demonstrate that the neurol compression method used, outperforms state-of-the-art benchmarking models in terms of lower reconstruction errors with the same compression ratio. It is important to note, that they do not evaluate downstream ML tasks directly, just reconstruction. % We should probably find another example that does here.
+\\
+\\
+% Two major challenges
+Two major challenges remain across all the examples shown above. First, the rate-utility trade-off. The above mentioned trade-off between compression rate and ML utility is oftern referred to as rate-utility trade-off. Numerous papers like \citep{bao2025datasetdistillationdatacompression} and \citep{zhao2025dreaML} adress this as an ongoing challange.
+\\
+\\
+Another limitation most of these papers fail to address is the computational constraints of in-vehicle embedded systems. The mentioned papers, with the exception of \citep{bao2025datasetdistillationdatacompression} which uses dataset distillation, which comes with its own problems \citep{yang2024datasetdistillationlearning}, primarily focus on achieving high compression rates while maintaining model performance, therefore often choosing computationally heavy neural network architectures like recurrent neural networks (RNNs) or transformers.
+\\
+\\
+% Conclusion
+So while modern compression techniques, like neural compression, have shown promising advancements in balancing the compression and model performance trade-off, there remains a significant gap in systematically understanding and optimizing the rate-utility trade-off, specifically in vehicular contexts, where computational resources and bandwidth are often constrained.
+
+
+
+

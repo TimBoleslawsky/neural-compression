@@ -1,23 +1,20 @@
-\section{Approach}
+\section{Approach}\label{sec:approach}
+
 \begin{itemize}
-    \item \textbf{Dataset:} Use available automotive sensor and telemetry data supporting tasks such as predictive maintenance and anomaly detection.
-    \item \textbf{Phase 1 – Baseline:} Train ML models on uncompressed and event-based data to quantify loss in predictive utility.
-    \item \textbf{Phase 2 – Neural compression:} Implement autoencoder and VAE baselines for sensor streams \citep{bhattacharya2022, ravi2024}.
-    \item \textbf{Phase 3 – Tokenization framework:}
+    \item \textbf{Dataset:} Use available automotive sensor and telemetry test-fleet data supporting tasks such as predictive maintenance and anomaly detection.
+    \item \textbf{Task 1:} Train downstream ML models on uncompressed data to quantify loss in predictive utility.
+    \item \textbf{Task 2:} Implement established neural compression methods (TBC) as baselines, measuring rate-utility trade-offs.
+    \item \textbf{Task 3:} Develop a learnable tokenization module that discretizes data into semantically meaningful units optimized for downstream tasks.
     \begin{itemize}
-        \item Develop a learnable tokenization module that discretizes data into semantically meaningful units optimized for downstream tasks \citep{tokenization2024}.
-        \item Train end-to-end with joint objective: 
-        \[
-        \mathcal{L} = \lambda \cdot \text{Rate} + (1 - \lambda) \cdot \text{Task Loss}
-        \]
-        following a rate–utility perspective \citep{dataset_distillation2025}.
-        \item Explore adaptive token sizes based on model uncertainty \citep{wiessner2024}.
+        \item Design tokenization schemes for automotive sensor data (time series).
+        \item Define ML-aware utility metrics that correlate compression rate with downstream model performance (e.g., accuracy, F1-score).
     \end{itemize}
-    \item \textbf{Phase 4 – Evaluation:}
+    \item \textbf{Task 4:} Evaluate and compare the methods.
     \begin{itemize}
-        \item Measure rate–utility curves across methods.
-        \item Compare tokenization, neural compression, and event-triggered baselines.
-        \item Evaluate trade-offs between bandwidth and ML accuracy.
+        \item Measure rate-utility curves across the methods.
+        \item Evaluate trade-offs between computational efficiency.
     \end{itemize}
-    \item \textbf{Expected Outcome:} Demonstrate that task-aware tokenization achieves efficient compression without significant ML degradation, offering a foundation for adaptive telemetry and co-design in future vehicles.
+    \item \textbf{Optional Task 5:} Evaluate the use of the tokenization framework as a precursor to neural compression methods, to further improve rate-utility trade-off. 
+    \item \textbf{Expected Outcome:} Demonstrate that task-aware tokenization achieves comparable rate-utility trade-off to established neural compression approaches, while increasing computational efficiency. 
 \end{itemize}
+\citep{key}

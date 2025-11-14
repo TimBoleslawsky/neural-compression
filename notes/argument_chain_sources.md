@@ -1,3 +1,17 @@
+in-vehicle embedded systems and in-vehicle networks 
+=> initial worry, saturation of bus leads to = event-triggerd logging 
+=> modern data quantity challenges and downstream ML tasks show need for = alternative or complementary approaches
+    - event-triggerd logging leads to loss of information
+    - why cant we use traditional compression methods? 
+
+=> One possible solutions: 
+    - neural compression 
+        - initial works show promise, but two major gaps remain: 
+            - computational constraint of embedded systems
+            - systematic understanding of rate-utility trade-off in vehicular contexts
+    - utility-aware adaptive telemetry
+    - (end-to-end co-design)
+
 ## 1) Early concern: continuous streaming would overload in-vehicle networks
 
 Core idea: Legacy in-vehicle networks (Classical CAN at 1 Mbit/s, LIN at 20 Kbit/s) were never designed for high-volume continuous sensor streams (video, radar point clouds). This motivated selective/event-based logging and diagnostic approaches.

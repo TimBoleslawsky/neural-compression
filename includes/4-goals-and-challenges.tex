@@ -1,18 +1,26 @@
-\section{Goals and Challenges}
+\section{Goals and Challenges}\label{sec:goals-and-challenges}
+
+% Justification of tokenization as a neural compression strategy.
+The goal of compression, in its simplest terms, is to find a reduced representation of data that preserves the information relevant to a task. In natural language processing tasks, this is often achieved through tokenization \citep{schmidt2024tokenization}. Tokenization is tradionally understood as the mapping of high-dimensional, continuous inputs into a sequence of discrete symbols drawn from a finite vocabulary \citep{grefenstette1999}. Tokenization therefore serves as a form of neural compression: it reduces dimensionality, constrains representations to a compact code space, and can be made task-aware so that the retained tokens are maximally useful for prediction or classification. We propose, that this idea can be translated to time series data. Instead of compressing raw sensor values, we aim to learn a discrete vocabulary of prototypical temporal patterns that are maximally informative for downstream tasks. This approach is expected to give us two distinct advantages: 
 \begin{itemize}
-    \item \textbf{Main goal:} Develop and evaluate a \emph{task-aware tokenization framework} for automotive data that balances compression efficiency with ML utility.
+    \item better computational efficiency compared to RNN and transformer based neural compression methods.
+    \item an interpretable intermediate layer of tokens instead of continuous values.
+\end{itemize}
+
+% Goals and challenges
+To achieve this we define the following goals and challenges:
+\begin{itemize}
+    \item \textbf{Main goal:} Develop and evaluate a \emph{task-aware tokenization framework} for automotive data that balances computational efficiency, compression rate, and ML utility.
     \item \textbf{Sub-goals:}
     \begin{itemize}
-        \item Quantify the rate--utility trade-off between compression and ML performance.
-        \item Compare tokenization-based compression to event-based and neural compression baselines \citep{bhattacharya2022, choi2023, ravi2024}.
-        \item Investigate adaptive or uncertainty-driven data selection mechanisms \citep{wiessner2024}.
-        \item Position tokenization within a co-design framework linking logging and ML performance \citep{task_oriented2023}.
+        \item Quantify the loss in predictive utility when training ML models on uncompressed, tokenized and compressed data.
+        \item \ldots
     \end{itemize}
     \item \textbf{Challenges:}
     \begin{itemize}
-        \item Designing tokenization mechanisms for heterogeneous sensor data.
-        \item Defining ML-aware utility metrics correlating rate with accuracy/F1.
-        \item Bias and sparsity in selectively logged data.
-        \item Real-time constraints in embedded environments.
+        \item Agree on a downstream ML task or task type (e.g., predictive maintenance, anomaly detection).
+        \item Define how computational efficiency will be measured (e.g., inference time, model size).
+        \item Agree on a subset of the available automotive data. 
     \end{itemize}
 \end{itemize}
+\citep{key}
