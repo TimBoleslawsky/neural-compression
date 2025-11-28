@@ -13,14 +13,17 @@ To achieve this we define the following goals and challenges:
     \item \textbf{Main goal:} Develop and evaluate a \emph{task-aware tokenization framework} for automotive data that balances computational efficiency, compression rate, and ML utility.
     \item \textbf{Sub-goals:}
     \begin{itemize}
-        \item Quantify the loss in predictive utility when training ML models on uncompressed, tokenized and compressed data.
+        \item Produce a lightweight task-aware tokenization framework for time series data.
+        \item Quantify the loss in predictive utility when training ML models on uncompressed, tokenized and compressed data. % doesn't the model require the data to be tokenized regardless? or what does uncompressed mean in this context?
+        \item Measure the computational cost of the system in terms of latency and peak memory usage. % I think these are the most relevant metrics in our case, might need a source for it though
+        \item Measure the rate-utility tradeoff of the implementation in regards to the relevant ML task.
         \item \ldots
     \end{itemize}
     \item \textbf{Challenges:}
     \begin{itemize}
         \item Agree on a downstream ML task or task type (e.g., predictive maintenance, anomaly detection).
         \item Define how computational efficiency will be measured (e.g., inference time, model size).
-        \item Agree on a subset of the available automotive data. 
+        \item Agree on a subset of the available automotive data. % do we want to test it on publicly available data as well? otherwise the results might be hard to present
     \end{itemize}
 \end{itemize}
 \citep{key}
