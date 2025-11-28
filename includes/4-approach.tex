@@ -1,5 +1,12 @@
 \section{Approach}\label{sec:approach}
 
+% Justification of tokenization as a neural compression strategy - talk about inspiration from speech and audio processing
+The goal of compression, in its simplest terms, is to find a reduced representation of data that preserves the information relevant to a task. In natural language processing tasks, this is often achieved through tokenization \citep{schmidt2024tokenization}. Tokenization is traditionally understood as the mapping of high-dimensional, continuous inputs into a sequence of discrete symbols drawn from a finite vocabulary \citep{grefenstette1999}. Tokenization therefore serves as a form of neural compression: it reduces dimensionality, constrains representations to a compact code space, and can be made task-aware so that the retained tokens are maximally useful for prediction or classification. We propose, that this idea can be translated to time series data. Instead of compressing raw sensor values, we aim to learn a discrete vocabulary of prototypical temporal patterns that are maximally informative for downstream tasks. This approach is expected to give us two distinct advantages: 
+\begin{itemize}
+    \item better computational efficiency compared to RNN and transformer based neural compression methods.
+    \item an interpretable intermediate layer of tokens instead of continuous values.
+\end{itemize}
+
 \begin{itemize}
     \item \textbf{Dataset:} Use available automotive sensor and telemetry test-fleet data supporting tasks such as predictive maintenance and anomaly detection.
     \item \textbf{Task 1:} Train downstream ML models on uncompressed data to quantify loss in predictive utility.
