@@ -1,0 +1,15 @@
+\section{Problems \& Research Gaps}\label{sec:research-gaps}
+
+Analyzing relevant industry practices and relevant literature on compression techniques reveals several significant unsolved challenges and research gaps, which will be addressed with this project:
+
+\begin{itemize}
+    \item From the industry perspective, automotive systems need high-utility ML-ready data under severe bandwidth and computational limits. Existing event-triggered logging schemes introduce sampling bias and maintenance overhead.
+    \item While there exists some exploration of task-aware neural compression techniques for image and video data, there is a notable lack of research focusing on time series data, which is the predominant data type in automotive and IoT applications. This gap is supported by a 2022 survey done on the topic of neural compression \citep{yang2022}.
+    \item Most of the discussed papers fail to address the computational constraints of in-vehicle embedded or IoT systems. The mentioned papers, if they use neural compression, primarily focus on achieving high compression rates while maintaining model performance. Because of this, computationally heavy neural network architectures like recurrent neural networks (RNNs) or transformers were chosen \citep{zheng2023, löhdefink2019, kawawabeaudan2022, liu2024deepdictdeeplearningbased}. 
+\end{itemize}
+
+So while task-aware approaches to modern compression techniques like neural compression have shown promising advancements in balancing the rate-utility trade-off, there remains a significant gap in analyzing their effects on time series data, specifically in vehicular contexts, where computational resources and bandwidth are often constrained. A lightweight, task-aware compression method for automotive time-series data is therefore needed.
+
+
+
+
