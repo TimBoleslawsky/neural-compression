@@ -1,0 +1,27 @@
+\section{Problem}\label{sec:problem}
+
+% Introduction of Problem - Done
+Constructing downstream ML models for automotive systems, or in fact Internet-of-Things (IoT) systems in general, is a constant trade-off between handling large quantities of data and maximizing model performance \citep{cuza2024}. Traditional compression techniques can reduce data volume, but often at the cost of losing critical information necessary for accurate ML tasks such as predictive maintenance, anomaly detection, and fleet analytics. The impact of this trade-off is well-documented in the literature.~\citet{cuza2024} for example study the impact of lossy compression techniques on time series forecasting tasks and observe a constant trade-off between compression ratio and forecasting accuracy.
+
+% Examples - Done
+\textbf{Neural Compression and Task-Aware Compression:} In the context of this project, two promising developments in this area will be explored: neural compression and task-aware compression. 
+
+Neural Compression models leverage deep learning techniques to learn efficient data representations to compress data \citep{yang2022}. Studies as early as 2019 have shown that neural compression methods can outperform traditional compression techniques for image and video data, especially at low bitrates \citep{löhdefink2019}. The same has been shown for time series data \citep{zheng2023, liu2024deepdictdeeplearningbased}. 
+
+Task-aware compression techniques, on the other hand, focus on optimizing compression algorithms to retain information that is most relevant for specific tasks \citep{yang2022}. This idea has shown promise in handling time-series data more efficiently in IoT systems.~\citet{azar2022robust} and \citet{sun2025} for example explore task-aware compression algorithms that adaptively prioritize data features based on their relevance to downstream tasks, demonstrating improved performance in resource-constrained environments.
+
+When combining these two techniques task-aware neural compression models, have shown promise in reducing the rate-utility trade-off. These models are specifically designed to retain essential features for ML tasks while achieving high compression ratios \citep{yang2022}. Studies that empirically evaluate the performance of task-aware neural compression models are somewhat limited, but they do exist. In one study for example, \citet{kawawabeaudan2022} use a hierarchical autoencoder-based compression network together with a recognition model and implement two hyperparameters to trade off between distortion, bitrate, and recognition performance. 
+
+% Two major challenges - Done
+\textbf{Limitations of Existing Work:} There are two major limitations with the examples discussed above: % TODO: change this to research gaps
+\begin{itemize}
+    \item While there exist some exploration of task-aware neural compression techniques for image and video data \citep{kawawabeaudan2022}, there is a notable lack of research focusing on time series data, which is the predominant data type in automotive and IoT applications. This is supported by a 2022 survey done on the topic of neural compression \citep{yang2022}.
+    \item Most of the discussed papers fail to address the computational constraints of in-vehicle embedded or IoT systems. The mentioned papers, if they use neural compression, primarily focus on achieving high compression rates while maintaining model performance. Because of this, computationally heavy neural network architectures like recurrent neural networks (RNNs) or transformers were chosen \citep{zheng2023, löhdefink2019, kawawabeaudan2022, liu2024deepdictdeeplearningbased}. 
+\end{itemize}
+
+% Conclusion - Done
+So while task-aware approaches to modern compression techniques like neural compression have shown promising advancements in balancing the compression and model performance trade-off, there remains a significant gap in analyzing their effects on time series data, specifically in vehicular contexts, where computational resources and bandwidth are often constrained.
+
+
+
+
