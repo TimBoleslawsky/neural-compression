@@ -1,0 +1,17 @@
+\section{Approach}\label{sec:approach}
+
+% Proposed Approach - decide on a baseline and formulate
+\textbf{Detailed Approach:} The proposed approach is to develop a task-aware tokenization framework for automotive time series data compression that balances computational efficiency, compression rate, and ML utility. 
+\begin{itemize}
+    \item \textbf{Dataset:} As a dataset the focus will be on available automotive sensor and telemetry test-fleet data supporting tasks such as predictive maintenance and anomaly detection. Alternatively, publicly available datasets such as the SCANIA Component X Dataset can be used \citep{kharazian2025}.
+    \item \textbf{Task 1:} Train downstream ML models on uncompressed data to quantify loss in predictive utility.
+    \item \textbf{Task 2:} Implement baseline. % What to use?
+    \item \textbf{Task 3:} Develop a learnable tokenization module that discretizes data into semantically meaningful units optimized for downstream tasks.
+    \item \textbf{Task 4:} Develop lightweight entropy modeling and coding schemes tailored to the tokenized representations.
+    \item \textbf{Task 5:} Evaluate and compare the methods.
+    \begin{itemize}
+        \item Measure rate-utility curves across the methods.
+        \item Evaluate trade-offs between computational efficiency.
+    \end{itemize}
+    \item \textbf{Expected Outcome:} Demonstrate that task-aware tokenization achieves comparable rate-utility trade-off to established neural compression approaches, while increasing computational efficiency. 
+\end{itemize}
