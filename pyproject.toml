@@ -1,8 +1,0 @@
-[project]
-name = "neural-compression"
-version = "0.1.0"
-description = ""
-readme = "README.md"
-requires-python = ">=3.12,<3.14"
-authors = [{ name = "Tim Boleslawsky", email = "tim.boleslawsky@icloud.com" }]
-dependencies = []
