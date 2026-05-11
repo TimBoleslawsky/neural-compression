@@ -7,3 +7,5 @@ This repository contains the neural compression framework created during my thes
 Here we will describe how to use the framework.
 
 ### References
+
+Here we will list the references used in the thesis.
