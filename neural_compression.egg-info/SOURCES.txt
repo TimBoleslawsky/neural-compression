@@ -1,0 +1,7 @@
+README.md
+main.py
+pyproject.toml
+neural_compression.egg-info/PKG-INFO
+neural_compression.egg-info/SOURCES.txt
+neural_compression.egg-info/dependency_links.txt
+neural_compression.egg-info/top_level.txt

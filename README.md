@@ -4,4 +4,6 @@ This repository contains the neural compression framework created during my thes
 
 ### Usage
 
+Here we will describe how to use the framework.
+
 ### References
