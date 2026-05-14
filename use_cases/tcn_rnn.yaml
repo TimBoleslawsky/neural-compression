@@ -1,0 +1,169 @@
+version: "tcn_rnn_baseline"
+base_path: "/path/to/repo"
+
+seed: 42
+
+mode: train  # Options: train, finetune, test
+
+# Dataset configuration
+dataset:
+  name: "timeseries_text"               
+  arguments:
+    file_path: "/path/to/.csv"
+
+    split_ratios: [0.81, 0.09, 0.10]
+
+    max_rows: null  # Use full dataset
+
+    signal_columns:
+      - "lights"
+      - "Press_mm_hg"
+      - "T_out"
+      - "RH_out"
+      - "Windspeed"
+      - "Visibility"
+      - "Tdewpoint"
+
+    encode_signals:
+      - "lights"
+      - "Press_mm_hg"
+      - "T_out"
+      - "RH_out"
+      - "Windspeed"
+      - "Visibility"
+      - "Tdewpoint"
+
+    decode_signals:
+      - "lights"
+      - "Press_mm_hg"
+      - "T_out"
+      - "RH_out"
+      - "Windspeed"
+      - "Visibility"
+      - "Tdewpoint"
+
+    window_size: 144
+    stride: 1
+
+    compute_stats: true
+    apply_normalization: "standardize"  
+    normalize_encode_only: false       
+
+    delimiter: ","
+    na_values: []        # No missing values in AE dataset
+    datetime_format: "single_column"
+    datetime_column: "date"
+
+# DataLoader Configuration
+dataloader:
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+  prefetch_factor: 4
+  persistent_workers: true
+  train_shuffle: true
+  single_batch_eval: false
+
+# Model Configuration - Baseline Compression
+model:
+  name: "baseline"
+  arguments:
+    encoder:
+      type: "tcn"
+      arguments:
+        in_channels: 7
+        hidden_channels: 7           # Number of channels after encoder
+        num_layers: 5
+        kernel_size: 4
+        dropout: 0.1
+
+    # Number of dimensions after linear projection
+    embedding_dim: 1
+
+   # GRU Decoder Configuration
+    decoder:
+      type: "gru"
+      arguments:
+        embedding_dim: 1           # Must match model embedding_dim
+        out_channels: 7            # Must match encoder in_channels
+        gru_hidden_size: 7
+        gru_num_layers: 1
+        dropout: 0.1
+        bidirectional: false
+
+# Training Module Configuration
+training_module:
+  name: "compression"
+  parameters:
+    target_key: "encode"
+
+# Optimizer Configuration
+optimizer:
+  name: "adam"
+  parameters:
+    lr: 0.001
+    weight_decay: 0.0
+    betas: [0.9, 0.999]
+    eps: 1.0e-8
+
+# Learning Rate Scheduler Configuration
+scheduler:
+  function:
+    name: "cosine_annealing"
+    parameters:
+      T_max: 80
+      eta_min: 1.0e-6
+  trainer_parameters:
+    interval: "epoch"
+    frequency: 1
+
+# Callbacks Configuration
+callbacks:
+  # Early stopping based on validation loss
+  earlystopping:
+    monitor: "val_loss"
+    patience: 10
+    mode: "min"
+    verbose: true
+    min_delta: 0.0001
+
+  # Model checkpointing
+  modelcheckpoint:
+    dirpath: "${base_path}/checkpoints/baseline_${version}"
+    monitor: "val_loss"
+    mode: "min"
+    save_top_k: 3
+    save_last: true
+    verbose: true
+    filename: "${version}-{epoch:02d}-{val_loss:.4f}"
+
+  # Learning rate monitoring
+  learningratemonitor: {}
+
+# PyTorch Lightning Trainer Configuration
+trainer:
+  max_epochs: 80
+  num_sanity_val_steps: 2
+  val_check_interval: 1.0
+  limit_val_batches: 1.0
+  limit_train_batches: 1.0
+
+  log_every_n_steps: 10
+  enable_progress_bar: true
+
+  deterministic: true
+
+  gradient_clip_val: 1.0
+  gradient_clip_algorithm: "norm"
+
+  precision: "16-mixed"
+
+# Runner Configuration
+runner:
+  name: "base"
+  parameters: {}
+
+# Checkpoint Loading (for finetuning or resuming)
+checkpoints:
+  model: null                    # Path to model checkpoint for finetuning
+  trainer: null                  # Path to full training state checkpoint for resuming
