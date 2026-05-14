@@ -1,0 +1,195 @@
+version: "uni_edgecodec_reduced_smart_home_v2"
+base_path: "/path/to/repo"
+
+seed: 42
+
+mode: train  # Options: train, finetune, test
+
+# Dataset configuration
+dataset:
+  name: "timeseries_text"               
+  arguments:
+    file_path: "/path/to/.csv"
+
+    split_ratios: [0.81, 0.09, 0.10]
+
+    max_rows: null  # Use full dataset
+
+    signal_columns:
+      - "lights"
+      - "Press_mm_hg"
+      - "T_out"
+      - "RH_out"
+      - "Windspeed"
+      - "Visibility"
+      - "Tdewpoint"
+
+    encode_signals:
+      - "lights"
+      - "Press_mm_hg"
+      - "T_out"
+      - "RH_out"
+      - "Windspeed"
+      - "Visibility"
+      - "Tdewpoint"
+
+    decode_signals:
+      - "lights"
+      - "Press_mm_hg"
+      - "T_out"
+      - "RH_out"
+      - "Windspeed"
+      - "Visibility"
+      - "Tdewpoint"
+
+    window_size: 144
+    stride: 1
+
+    compute_stats: true
+    apply_normalization: "standardize"  
+    normalize_encode_only: false       
+
+    delimiter: ","
+    na_values: []        # No missing values in AE dataset
+    datetime_format: "single_column"
+    datetime_column: "date"
+
+# DataLoader Configuration
+dataloader:
+  batch_size: 64
+  num_workers: 4           
+  pin_memory: true
+  prefetch_factor: 4       
+  persistent_workers: true
+  train_shuffle: true
+  single_batch_eval: false
+
+model:
+  name: "uni_edgecodec"
+  arguments:
+    encoder:
+      type: "edgecodec_encoder"
+      arguments:
+        in_channels: 7
+        C: 7
+        D: 7
+        channel_progression: [7, 7, 7, 7]
+
+    quantizer:
+      type: "signal_adaptive_vq"
+      arguments:
+        num_quantizers: 2
+        codebook_size: 1000           
+        embedding_dim: 72          
+        commitment_cost: 0.35        
+        partition_config:
+          smooth_continuous: [0, 300]          
+          smooth_discontinuous: [300, 300]       
+          spiky_continuous: [300, 600]     
+          spiky_discontinuous: [600, 1000] 
+        epsilon: 1.0e-5
+
+    decoder:
+      type: "edgecodec_decoder"
+      arguments:
+        C: 7
+        D: 7
+        channel_progression: [7, 7, 7, 7]
+
+    signal_type_map:
+      "lights": 0
+      "Press_mm_hg": 2
+      "T_out": 2
+      "RH_out": 0
+      "Windspeed": 3
+      "Visibility": 3
+      "Tdewpoint": 3
+
+training_module:
+  name: "uni_edgecodec"
+  parameters:
+    alpha: 0.5
+    eta: 0.25
+    discontinuous_weight: 1
+    perceptual_weight: 1
+    discontinuous_perceptual_weight: 2
+    peak_weight: 2
+    signal_type_map:
+      "lights": 0
+      "Press_mm_hg": 2
+      "T_out": 2
+      "RH_out": 0
+      "Windspeed": 3
+      "Visibility": 3
+      "Tdewpoint": 3
+    target_key: "encode"
+
+# Optimizer configuration
+optimizer:
+  name: "adam"
+  parameters:
+    lr: 0.0005
+    betas:
+      - 0.9
+      - 0.98
+    eps: 1.0e-8
+
+# Learning rate scheduler - not used in GitHub 
+scheduler: 
+  function:
+    name: "cosine_annealing"
+    parameters:
+      T_max: 100
+      eta_min: 5.0e-6
+  trainer_parameters:
+    interval: "epoch"
+    frequency: 1
+
+# Callbacks
+callbacks:
+  # Model checkpointing
+  modelcheckpoint:
+    dirpath: "${base_path}/checkpoints/${version}"
+    monitor: "val_loss"
+    mode: "min"
+    save_top_k: 3
+    save_last: true
+    verbose: true
+    filename: "${version}-{epoch:02d}-{val_loss:.4f}"
+
+  earlystopping:
+    monitor: "val_loss"
+    patience: 20
+    mode: "min"
+    min_delta: 0.01
+    verbose: true
+
+  learningratemonitor: {}
+
+# PyTorch Lightning Trainer Configuration
+trainer:
+  max_epochs: 80
+  num_sanity_val_steps: 2
+  val_check_interval: 1.0
+  limit_val_batches: 1.0
+  limit_train_batches: 1.0
+
+  log_every_n_steps: 10
+  enable_progress_bar: true
+
+  deterministic: true
+
+  gradient_clip_val: 1.0
+  gradient_clip_algorithm: "norm"
+
+  precision: "32-true"  
+
+# Runner Configuration
+runner:
+  name: "base"
+  parameters: {}
+
+# Checkpoint Loading (for finetuning or resuming)
+checkpoints:
+  model: null                    # Path to model checkpoint for finetuning
+  trainer: null                  # Path to full training state checkpoint for resuming

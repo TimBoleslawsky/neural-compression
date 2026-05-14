@@ -1,0 +1,23 @@
+[project]
+name = "neural-compression"
+version = "0.1.0"
+description = "Neural compression framework used in my thesis."
+readme = "README.md"
+authors = [{ name = "Tim Boleslawsky", email = "tim.boleslawsky@icloud.com" }]
+requires-python = ">=3.12,<3.13"
+
+dependencies = [
+    "omegaconf==2.3.0",
+    "python-dotenv>=1.1.0",
+    "lightning==2.5.0",
+    "vector-quantize-pytorch>=1.0.0",
+    "torch>=2.6.0",
+    "pandas>=2.2.0",
+    "numpy>=1.26.0",
+    "ruff",
+    "codespell"
+]
+
+[tool.codespell]
+# `MAPE`/`mape` is a common acronym for Mean Absolute Percentage Error.
+ignore-words-list = "MAPE,mape"
